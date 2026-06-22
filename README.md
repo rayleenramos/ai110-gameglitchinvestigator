@@ -28,7 +28,7 @@ It wrote the code, ran away, and now the game is unplayable.
 - [x] **Describe the game's purpose.** It's a number-guessing game built with Streamlit. The app picks a secret number within a range based on difficulty (Easy 1–20, Normal 1–100, Hard 1–50), and the player tries to guess it within a limited number of attempts. After each guess the game gives a hint ("Too High" / "Too Low") and updates the score, ending when the player guesses correctly or runs out of attempts.
 
 - [x] **Detail which bugs you found.**
-  - **Swapped high/low hints:** `check_guess` told the player to "Go HIGHER!" when their guess was already too high, and "Go LOWER!" when it was too low — the hints pointed the wrong way.
+  - **Swapped high/low hints:** `check_guess` told the player to "Go HIGHER!" when their guess was already too high, and "Go LOWER!" when it was too low, the hints pointed the wrong way.
   - **Logic mixed with UI:** the core game logic (`check_guess`) lived directly in `app.py` alongside the Streamlit UI code, making it hard to test in isolation.
 
 - [x] **Explain what fixes you applied.**
