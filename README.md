@@ -41,12 +41,10 @@ It wrote the code, ran away, and now the game is unplayable.
 A text-based record of how the fixed game behaves end-to-end, so a reader can follow along without running it. (Sample game on **Normal** difficulty, range 1–100, secret number = **63**.)
 
 1. The player opens the app, sees "Guess a number between 1 and 100," and enters a guess of **40**.
-2. The game returns **"Too Low"** with the hint **"📈 Go HIGHER!"** — correctly pointing the player upward.
-3. The player enters a guess of **70** → the game returns **"Too High"** with the hint **"📉 Go LOWER!"** — correctly pointing the player downward.
+2. The game returns **"Too Low"** with the hint **"📈 Go HIGHER!"** —> correctly pointing the player upward.
+3. The player enters a guess of **70** → the game returns **"Too High"** with the hint **"📉 Go LOWER!"** —> correctly pointing the player downward.
 4. The score updates after each guess, and the "Attempts left" counter decreases by one per submission.
 5. The player enters **63**, the game shows **"🎉 Correct!"**, celebrates with balloons, reveals the secret number, displays the final score, and ends the game until "New Game" is clicked.
-
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
 ## 🧪 Test Results
 
