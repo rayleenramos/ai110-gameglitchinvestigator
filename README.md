@@ -25,28 +25,48 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] **Describe the game's purpose.** It's a number-guessing game built with Streamlit. The app picks a secret number within a range based on difficulty (Easy 1–20, Normal 1–100, Hard 1–50), and the player tries to guess it within a limited number of attempts. After each guess the game gives a hint ("Too High" / "Too Low") and updates the score, ending when the player guesses correctly or runs out of attempts.
+
+- [x] **Detail which bugs you found.**
+  - **Swapped high/low hints:** `check_guess` told the player to "Go HIGHER!" when their guess was already too high, and "Go LOWER!" when it was too low — the hints pointed the wrong way.
+  - **Logic mixed with UI:** the core game logic (`check_guess`) lived directly in `app.py` alongside the Streamlit UI code, making it hard to test in isolation.
+
+- [x] **Explain what fixes you applied.**
+  - Corrected the swapped hints so a too-high guess now says "Go LOWER!" and a too-low guess says "Go HIGHER!".
+  - Refactored `check_guess` out of `app.py` into `logic_utils.py` and imported it back, separating game logic from the UI.
+  - Added a regression test (`test_hint_direction_matches_guess`) that fails against the old buggy code and passes against the fix, so the bug can't silently return.
 
 ## 📸 Demo Walkthrough
 
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
+A text-based record of how the fixed game behaves end-to-end, so a reader can follow along without running it. (Sample game on **Normal** difficulty, range 1–100, secret number = **63**.)
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. The player opens the app, sees "Guess a number between 1 and 100," and enters a guess of **40**.
+2. The game returns **"Too Low"** with the hint **"📈 Go HIGHER!"** — correctly pointing the player upward.
+3. The player enters a guess of **70** → the game returns **"Too High"** with the hint **"📉 Go LOWER!"** — correctly pointing the player downward.
+4. The score updates after each guess, and the "Attempts left" counter decreases by one per submission.
+5. The player enters **63**, the game shows **"🎉 Correct!"**, celebrates with balloons, reveals the secret number, displays the final score, and ends the game until "New Game" is clicked.
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
 ## 🧪 Test Results
 
+Challenge 1: Advanced Edge-Case Testing — pytest output:
+
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+$ python -m pytest tests/ -v
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0
+cachedir: .pytest_cache
+rootdir: /Users/rayleenramos/Desktop/AI_110/ai110-gameglitchinvestigator
+plugins: anyio-4.13.0
+collecting ... collected 4 items
+
+tests/test_game_logic.py::test_winning_guess PASSED                      [ 25%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 50%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 75%]
+tests/test_game_logic.py::test_hint_direction_matches_guess PASSED       [100%]
+
+============================== 4 passed in 0.05s ===============================
 ```
 
 ## 🚀 Stretch Features
